@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 03:35:28 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/24 22:41:52 by engooh           ###   ########.fr       */
+/*   Created: 2021/09/25 13:30:33 by engooh            #+#    #+#             */
+/*   Updated: 2021/09/25 14:00:44 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	unsigned char	*p;
+	size_t		n;
 
-	p = s;
-	while (n--)
-		   *p++ = c;
-	  return (s);
+	if (!*little)
+		return ((char *)big);
+	n = ft_strlen(little);
+	while (len-- && *big)
+		if (!ft_strncmp(big++, little, n))
+			return ((char *)--big);
+	return (NULL);
 }

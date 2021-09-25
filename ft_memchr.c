@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 03:35:28 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/24 22:41:52 by engooh           ###   ########.fr       */
+/*   Created: 2021/09/24 22:59:45 by engooh            #+#    #+#             */
+/*   Updated: 2021/09/25 14:09:52 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*p;
-
-	p = s;
 	while (n--)
-		   *p++ = c;
-	  return (s);
+		if (*((unsigned char *)s++) == (unsigned char)c)
+			return ((void *)--s);
 }

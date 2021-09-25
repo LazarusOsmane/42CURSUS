@@ -6,10 +6,11 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:53:50 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/21 01:58:18 by engooh           ###   ########.fr       */
+/*   Updated: 2021/09/25 16:13:08 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stddef.h>
+#include <stdlib.h>
 
 int	ft_isalpha(int c);
 int	ft_isdigit(int c);
@@ -28,5 +29,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-
+char	*ft_strnstr(const char	*big, const char *little, size_t len);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strdup(const char *s);
+int	*ft_atoi(const char *nptr);
