@@ -6,7 +6,7 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:53:50 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/25 16:13:08 by engooh           ###   ########.fr       */
+/*   Updated: 2021/09/26 18:05:20 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stddef.h>
@@ -33,3 +33,7 @@ char	*ft_strnstr(const char	*big, const char *little, size_t len);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
 int	*ft_atoi(const char *nptr);
+
+char *ft_substr(char const *s, unsigned int start, size_t len);
+char *ft_strjoin(char const *s1, char const *s2);
+char *ft_strtrim(char const *s1, char const *set);

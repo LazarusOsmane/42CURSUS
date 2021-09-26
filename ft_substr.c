@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 03:09:31 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/26 11:48:15 by engooh           ###   ########.fr       */
+/*   Created: 2021/09/25 16:45:46 by engooh            #+#    #+#             */
+/*   Updated: 2021/09/26 18:45:42 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stddef.h>
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
+	char	*p;
 
-	i = -1;
-	if (size == 0)
-		return (ft_strlen(src));
-	while (src[++i] && size--)
-		dst[i] = src[i];
-	dst[i] = '\0';
-	return (ft_strlen(src));
+	p = malloc((len + 1) * sizeof(char));
+	if (!p)
+		return (NULL);
+	if (len)
+		p = ft_memcpy(p, s + start, len);
+	p[len] = '\0';
+	return (p);
 }
