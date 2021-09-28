@@ -1,27 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 23:12:49 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/27 13:15:58 by engooh           ###   ########.fr       */
+/*   Created: 2021/09/28 14:53:17 by engooh            #+#    #+#             */
+/*   Updated: 2021/09/28 16:34:02 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_intlen(long n, long l)
 {
-	unsigned const char	*p1;
-	unsigned const char	*p2;
-
-	if (n == 0)
-		return (0);
-	p1 = s1;
-	p2 = s2;
-	while (n-- && *p1 && *p2 && *p1++ == *p2++)
+	if (n < 0)
 	{
+		l++;
+		n = -n;
 	}
-	return (*--p1 - *--p2);
+	while (l++ < n)
+		n /= 10;
+	return (l);
+}
+
+char	*ft_itoa(int n)
+{
+	long	l;
+	long	m;
+	char	*p;
+
+	m = n;
+	l = ft_intlen(n, 1);
+	p = malloc(l * sizeof(char));
+	if (!p)
+		return (NULL);
+	if (m < 0)
+	{
+		m = -m;
+		p[0] = '-';
+	}
+	p[--l] = '\0';
+	while (l)
+	{
+		if (p[--l] == '-')
+			break ;	
+		p[l] = '0' + (m % 10);
+		m /= 10;
+	}
+	return (p);
 }
