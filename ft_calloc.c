@@ -6,12 +6,12 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 14:00:55 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/25 14:03:59 by engooh           ###   ########.fr       */
+/*   Updated: 2021/10/01 21:24:20 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*p;
 
@@ -19,4 +19,5 @@ void	*calloc(size_t nmemb, size_t size)
 	if (!p)
 		return (NULL);
 	p = ft_memset(p, 0, nmemb * size);
+	return (p);
 }

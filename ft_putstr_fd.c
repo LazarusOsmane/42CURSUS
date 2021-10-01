@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 22:59:45 by engooh            #+#    #+#             */
-/*   Updated: 2021/10/01 21:22:08 by engooh           ###   ########.fr       */
+/*   Created: 2021/10/01 20:46:52 by engooh            #+#    #+#             */
+/*   Updated: 2021/10/01 20:50:26 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	ft_putstr_fd(char *s, int fd)
 {
-	while (n--)
-		if (*((unsigned char *)s++) == (unsigned char)c)
-			return ((void *)--s);
-	return (NULL);
+	while (*s)
+		write(fd, s++, 1);
 }
