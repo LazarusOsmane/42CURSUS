@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/25 16:45:46 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/25 17:27:22 by engooh           ###   ########.fr       */
+/*   Created: 2021/09/24 22:59:45 by engooh            #+#    #+#             */
+/*   Updated: 2021/10/01 21:22:08 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
-char *ft_substr(char const *s, unsigned int start, size_t len)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*p;
-
-	p = malloc((len + 1) * sizeof(char));
-	if (!p)
-		return (NULL);
-	p[len] = '\0';
-	p = ft_memcpy(p, s + start, len);
-	return (p);
-}
-
-int main(void)
-{
-	return (0);
+	while (n--)
+		if (*((unsigned char *)s++) == (unsigned char)c)
+			return ((void *)--s);
+	return (NULL);
 }
