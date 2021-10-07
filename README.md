@@ -1,2 +1,2 @@
 # 42CURSUS
-Born to code
+BORN TO CODE
