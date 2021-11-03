@@ -1,0 +1,41 @@
+==15535== Memcheck, a memory error detector
+==15535== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==15535== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==15535== Command: ./a.out
+==15535== Parent PID: 1614
+==15535== 
+==15535== Conditional jump or move depends on uninitialised value(s)
+==15535==    at 0x483EFB8: __strlen_sse2 (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15535==    by 0x48CFE94: __vfprintf_internal (vfprintf-internal.c:1688)
+==15535==    by 0x48B8EBE: printf (printf.c:33)
+==15535==    by 0x109649: main (get_next_line_v2.c:151)
+==15535==  Uninitialised value was created by a heap allocation
+==15535==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15535==    by 0x1093F9: ft_strjoin (get_next_line_v2.c:76)
+==15535==    by 0x109582: ft_read (get_next_line_v2.c:117)
+==15535==    by 0x1095E7: ft_get_next_line (get_next_line_v2.c:133)
+==15535==    by 0x10962D: main (get_next_line_v2.c:150)
+==15535== 
+==15535== 
+==15535== HEAP SUMMARY:
+==15535==     in use at exit: 0 bytes in 0 blocks
+==15535==   total heap usage: 424 allocs, 424 frees, 5,573 bytes allocated
+==15535== 
+==15535== All heap blocks were freed -- no leaks are possible
+==15535== 
+==15535== ERROR SUMMARY: 28 errors from 1 contexts (suppressed: 0 from 0)
+==15535== 
+==15535== 28 errors in context 1 of 1:
+==15535== Conditional jump or move depends on uninitialised value(s)
+==15535==    at 0x483EFB8: __strlen_sse2 (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15535==    by 0x48CFE94: __vfprintf_internal (vfprintf-internal.c:1688)
+==15535==    by 0x48B8EBE: printf (printf.c:33)
+==15535==    by 0x109649: main (get_next_line_v2.c:151)
+==15535==  Uninitialised value was created by a heap allocation
+==15535==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15535==    by 0x1093F9: ft_strjoin (get_next_line_v2.c:76)
+==15535==    by 0x109582: ft_read (get_next_line_v2.c:117)
+==15535==    by 0x1095E7: ft_get_next_line (get_next_line_v2.c:133)
+==15535==    by 0x10962D: main (get_next_line_v2.c:150)
+==15535== 
+==15535== ERROR SUMMARY: 28 errors from 1 contexts (suppressed: 0 from 0)
