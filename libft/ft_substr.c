@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include <libc.h>
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -30,14 +29,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
     p[len] = '\0';
     return (p);
 }
-
-/*
-int main(void)
-{
-    char *p;
-
-    p = NULL;
-    p = ft_substr("hello le monde", 5, 10);
-    printf("%s", p);
-    return (0);
-}*/
