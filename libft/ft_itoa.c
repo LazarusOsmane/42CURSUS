@@ -6,55 +6,45 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:53:17 by engooh            #+#    #+#             */
-/*   Updated: 2021/11/25 19:37:48 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/26 14:30:35 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 int	ft_intlen(long n, long l)
 {
-    if (n < 0)
-	  n = -n;
-    while (n)
-    {
-	  l++;
-	  n /= 10;
-    }
+    if (n == 0)
+	  return (1);
+    if (n < 0 && ++l)
+	  n *= -1;
+    while (n && ++l)
+	  n /= 10; 
     return (l);
 }
 
 char	*ft_itoa(int n)
 {
-    long	l;
-    long	m;
-    char	*p;
+    long		l;
+    unsigned int	k;
+    char		*p;
 
-    m = n;
+    k = n;
     l = ft_intlen(n, 0);
-   //printf("%ld\n", l);
-    if (n && l == 0)
-	  l++;
-    p = malloc((l + 1 ) * sizeof(char));
+    p = malloc(sizeof(char) * (l + 1));
     if (!p)
 	  return (NULL);
-    if (m < 0)
+    if (n == 0)
+	  p[0] = '0';
+    if (n < 0)
     {
-	  m = -m;
+	  k = -n;
 	  p[0] = '-';
     }
     p[l] = '\0';
-    while (l--)
+    while (k)
     {
-	  if (p[l] == '-')
-		break ;
-	  p[l] = '0' + (m % 10);
-	  m /= 10;
+	  p[--l] = '0' + (k % 10);
+	  k /= 10;
     }
     return (p);
 }
-/*
-int main(void)
-{
-    printf("%s", ft_itoa(156));
-    return (0);
-}*/

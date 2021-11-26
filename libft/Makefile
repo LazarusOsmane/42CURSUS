@@ -38,3 +38,8 @@ fclean: clean
 	${RM} ${NAME}
 
 re: fclean all
+
+lib: ${NAME} clean
+
+.PHONY: all  bonus fclean clean re lib
+	
