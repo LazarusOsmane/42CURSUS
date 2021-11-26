@@ -6,7 +6,7 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 03:35:28 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/24 22:41:52 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/26 18:41:47 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -17,6 +17,6 @@ void	*ft_memset(void *s, int c, size_t n)
 
 	p = s;
 	while (n--)
-		   *p++ = c;
-	  return (s);
+		*p++ = c;
+	return (s);
 }

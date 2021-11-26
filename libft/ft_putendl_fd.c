@@ -6,15 +6,15 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 20:51:19 by engooh            #+#    #+#             */
-/*   Updated: 2021/11/26 14:34:06 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/26 18:41:28 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
-    if (!s || fd < 0)
-	  return ;
+	if (!s || fd < 0)
+		return ;
 	while (*s)
 		write(fd, s++, 1);
 	write(fd, "\n", 1);

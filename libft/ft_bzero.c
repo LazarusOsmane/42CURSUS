@@ -6,13 +6,13 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:34:13 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/13 03:02:21 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/26 18:37:37 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "stddef.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	  while (n--)
-		    *((unsigned char *)s++) = 0;
+	while (n--)
+		*((unsigned char *)s++) = 0;
 }
