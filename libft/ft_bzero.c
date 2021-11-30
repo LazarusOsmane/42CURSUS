@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
+/*   By: engooh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 02:34:13 by engooh            #+#    #+#             */
-/*   Updated: 2021/11/26 18:37:37 by engooh           ###   ########.fr       */
+/*   Created: 2021/11/26 19:21:39 by engooh            #+#    #+#             */
+/*   Updated: 2021/11/26 19:22:43 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "stddef.h"
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {

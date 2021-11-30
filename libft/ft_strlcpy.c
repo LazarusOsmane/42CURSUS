@@ -6,10 +6,9 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 03:09:31 by engooh            #+#    #+#             */
-/*   Updated: 2021/11/24 13:26:20 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/30 12:26:59 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stddef.h>
 #include "libft.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)

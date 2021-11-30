@@ -6,10 +6,10 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 11:57:42 by engooh            #+#    #+#             */
-/*   Updated: 2021/11/24 13:14:10 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/30 17:21:23 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stddef.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
@@ -18,10 +18,10 @@ char	*ft_strrchr(const char *s, int c)
 	i = 0;
 	while (s[i])
 		i++;
-	if (s[i] == c)
+	if ((unsigned char)s[i] == (unsigned char)c)
 		return ((char *)(s + i));
 	while (i--)
-		if (s[i] == c)
+		if ((unsigned char)s[i] == (unsigned char)c)
 			return ((char *)(s + i));
 	return (NULL);
 }

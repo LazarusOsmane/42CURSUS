@@ -6,11 +6,10 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 18:07:06 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/19 20:17:57 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/30 12:26:40 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include <stddef.h>
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {

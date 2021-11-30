@@ -6,16 +6,16 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 23:50:33 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/29 00:14:48 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/30 16:46:35 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int	i;
+	unsigned int	i;
 
 	i = -1;
-	if (s)
+	if (s && f)
 		while (s[++i])
-			f((unsigned int)i, s + i);
+			f(i, s + i);
 }

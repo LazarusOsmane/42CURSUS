@@ -6,16 +6,16 @@
 /*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 11:48:06 by engooh            #+#    #+#             */
-/*   Updated: 2021/09/20 19:17:17 by engooh           ###   ########.fr       */
+/*   Updated: 2021/11/30 16:48:40 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
-		if (*s++ == c)
+		if ((unsigned char)*s++ == (unsigned char)c)
 			return ((char *)--s);
-	if (*s == c)
+	if ((unsigned char)*s == (unsigned char)c)
 		return ((char *)s);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engooh <erickngooh.1@gmail.com>            +#+  +:+       +#+        */
+/*   By: engooh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 23:12:49 by engooh            #+#    #+#             */
-/*   Updated: 2021/11/26 18:42:03 by engooh           ###   ########.fr       */
+/*   Created: 2021/11/26 19:32:42 by engooh            #+#    #+#             */
+/*   Updated: 2021/11/29 20:04:25 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -20,7 +20,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		return (0);
 	p1 = s1;
 	p2 = s2;
-	while (n - 1 && *p1++ == *p2++)
+	while (*p1++ == *p2++ && n - 1)
 		n--;
 	return (*--p1 - *--p2);
 }
