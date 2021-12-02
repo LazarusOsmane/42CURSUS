@@ -5,7 +5,7 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft
 
 OBJ = ${SRC:.c=.o}
 
-BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c\
+BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c\
 	ft_lstnew.c ft_lstsize.c 
 
 OBJ_BONUS = ${BONUS:.c=.o}
@@ -19,10 +19,6 @@ RM  = rm -f
 FLAG = -Wall -Werror -Wextra
 
 all: ${NAME}
-
-so:
-	$(CC) -fPIC $(CFLAGS) $(SRC)
-	gcc -shared -o libft.so $(OBJ)
 
 %.o: %.c
 	gcc ${FLAG} -c $< -o $@
@@ -43,4 +39,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all  bonus fclean clean re	
+.PHONY: all bonus fclean clean re	
