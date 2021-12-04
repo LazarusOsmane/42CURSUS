@@ -6,7 +6,7 @@
 /*   By: engooh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 14:58:54 by engooh            #+#    #+#             */
-/*   Updated: 2021/12/04 16:39:44 by engooh           ###   ########.fr       */
+/*   Updated: 2021/12/04 18:43:27 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -33,6 +33,7 @@ char	*ft_check_read(char *str, char	*buf, int err)
 	{
 		free(str);
 		free(buf);
+		(void)buf;
 		return (NULL);
 	}
 	return (str);
@@ -59,13 +60,16 @@ char	*ft_strdup(char	*str, size_t size)
 	size_t	i;
 	char	*new;
 
-	if (*str)
+	if (!str)
+		return (NULL);
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);
 	i = -1;
 	while (str[++i] && str[i] != '\n')
 		new[i] = str[i];
+	if (str[i] == '\n')
+		new[i++] = '\n';
 	new[i] = '\0';
 	return (new);
 }
@@ -105,7 +109,6 @@ char	*ft_read(char **memory, int fd, size_t l_max, size_t l_buf)
 	size_t	n;
 
 	n = 0;
-	line = NULL;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (!ft_strchr(*memory, (l_max - l_buf), &n) && l_buf)
 	{
@@ -132,6 +135,8 @@ char	*get_next_line(int fd)
 	static char	*memory[1024];
 	char		*line;
 
+	if (fd < 0 || BUFFER_SIZE < 0)
+		return (NULL);
 	line = ft_read(&memory[fd], fd, 0, 1);
 	return (line);
 }
@@ -139,12 +144,24 @@ char	*get_next_line(int fd)
 int	main(int argc, char **argv)
 {
 	int	fd;
+	//int	i;
+	char	*str;
+
 
 	(void)argc;
 	fd = open(argv[1], O_RDONLY);
-	if (!fd)
+	if (fd < 0)
 		return (0);
-	//get_next_line(fd);
-	while 
+	str = malloc(sizeof(char) * 1);
+	//i = 0;
+//	printf("ok");
+	*str = '\0';
+	while (str)
+	{
+		str = get_next_line(fd);
+		printf("%s", str);
+		free(str);
+	}
+	
 	return (0);
 }
