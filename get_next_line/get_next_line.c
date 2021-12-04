@@ -6,7 +6,7 @@
 /*   By: engooh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 14:58:54 by engooh            #+#    #+#             */
-/*   Updated: 2021/12/04 11:34:39 by engooh           ###   ########.fr       */
+/*   Updated: 2021/12/04 11:50:18 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -25,14 +25,14 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_check_read(char *memory, int err)
+char	*ft_check_read(char *str, int err)
 {
 	if (err == -1)
 	{
-		free(memory);
+		free(str);
 		return (NULL);
 	}
-	return (memory);
+	return (str);
 }
 
 
@@ -104,11 +104,11 @@ char	*ft_read(char **memory, int fd)
 
 	n = 0;
 	l_max = 0;
-	l_buf = 1;
+	l_buf = 0;
 	line = NULL;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	printf("ok1\n");
-	while (!ft_strchr(*memory + (l_max - l_buf), &n) && l_buf)
+	while (!ft_strchr(*memory + (l_max - l_buf), &n) && l_buf + 1)
 	{
 		l_buf = read(fd, buffer, BUFFER_SIZE);
 		l_max += l_buf;
@@ -118,6 +118,7 @@ char	*ft_read(char **memory, int fd)
 			line = ft_strjoin(line, buffer, (l_max - l_buf) + n);
 		else 
 			line = ft_strjoin(line, buffer, l_max);
+		l_buf--;
 	}
 	if (l_buf)
 		*memory = ft_strdup(*memory, l_max - n);
