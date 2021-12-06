@@ -6,7 +6,7 @@
 /*   By: engooh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 14:58:54 by engooh            #+#    #+#             */
-/*   Updated: 2021/12/04 18:43:27 by engooh           ###   ########.fr       */
+/*   Updated: 2021/12/06 15:12:07 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -27,13 +27,17 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_check_read(char *str, char	*buf, int err)
+char	*ft_check_read(char *str, char *buffer, int err)
 {
+	if (err && str)
+	{
+		free(buffer);
+		return (str);
+	}
 	if (err < 1)
 	{
 		free(str);
-		free(buf);
-		(void)buf;
+		free(buffer);
 		return (NULL);
 	}
 	return (str);
@@ -74,94 +78,94 @@ char	*ft_strdup(char	*str, size_t size)
 	return (new);
 }
 
-char	*ft_strjoin(char *s1, char *s2, char size)
+char	*ft_strjoin(char *s1, char *s2, size_t start, size_t size)
 {
 	char	*new_line;
 	char	*c;
 	size_t	i;
 
 	if (!s1)
-	{
-		s1 = malloc(sizeof(char) * 1);
-		if (!s1)
-			return (NULL);
-		*s1 = '\0';
-	}
+		s1 = ft_strdup("", 0);
 	new_line = malloc(sizeof(char) * (size + 1));
 	if (!new_line || !s2)
 		return (NULL);
 	c = new_line;
-	i = -1;
+	i = start;
 	while (s1[++i])
 		*new_line++ = s1[i];
+	free (s1);
 	i = -1;
 	while (s2[++i])
 		*new_line++ = s2[i];
-	free(s1);
 	*new_line = '\0';
 	return (c);
 }
 
-char	*ft_read(char **memory, int fd, size_t l_max, size_t l_buf)
+char	*ft_read(char *memory, int fd, size_t l_max, size_t l_buf)
 {
-	char	*buffer;
+	char	*buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	char	*line;
 	size_t	n;
 
+	if (!buffer)
+		return (NULL);
 	n = 0;
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	while (!ft_strchr(*memory, (l_max - l_buf), &n) && l_buf)
+	*buffer = '\0';
+	while (!ft_strchr(memory, (l_max - l_buf), &n) && l_buf)
 	{
 		l_buf = read(fd, buffer, BUFFER_SIZE);
+		if (l_buf < 1 && !*memory)
+			return (ft_check_read(memory, buffer, l_buf));
 		if (!l_max)
-			l_max = ft_strlen(*memory);
+			l_max = ft_strlen(memory);
 		l_max += l_buf;
 		buffer[l_buf] = '\0';
 		if (n)
-			*memory = ft_strjoin(*memory, buffer, (l_max - l_buf) + n);
+			memory = ft_strjoin(memory, buffer, 0, (l_max - l_buf) + n);
 		else 
-			*memory = ft_strjoin(*memory, buffer, l_max);
+			memory = ft_strjoin(memory, buffer, 0, l_max);
 	}
 	if (n)
-		line = ft_strdup(*memory, (l_max - l_buf) + n);
+		line = ft_strdup(memory, (l_max - l_buf) + n);
 	else
-		line = ft_strdup(*memory, l_max);
-	*memory = ft_strdup(*memory + (n + 1), l_max - n);
+		line = ft_strdup(memory, l_max);
+	memory = ft_strjoin(memory, memory, (l_max - l_buf) + n, l_max - n);
 	return (ft_check_read(line, buffer, l_buf));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*memory[1024];
+	static char	*memory;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = ft_read(&memory[fd], fd, 0, 1);
+	if (!memory)
+		memory = ft_strdup("", 0);
+	line = ft_read(memory, fd, 0, 1);
 	return (line);
 }
 
 int	main(int argc, char **argv)
 {
 	int	fd;
-	//int	i;
 	char	*str;
 
 
 	(void)argc;
-	fd = open(argv[1], O_RDONLY);
+	(void)argv;
+	fd = open("bible.txt", O_RDONLY);
 	if (fd < 0)
 		return (0);
 	str = malloc(sizeof(char) * 1);
-	//i = 0;
-//	printf("ok");
 	*str = '\0';
 	while (str)
 	{
 		str = get_next_line(fd);
 		printf("%s", str);
-		free(str);
+		if (str)
+			free(str);
 	}
-	
+	close(fd);
 	return (0);
 }
