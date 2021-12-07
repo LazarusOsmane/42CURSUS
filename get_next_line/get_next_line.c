@@ -1,171 +1,100 @@
-/* ************************************************************************** */
+/************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: engooh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 14:58:54 by engooh            #+#    #+#             */
-/*   Updated: 2021/12/06 15:12:07 by engooh           ###   ########.fr       */
+/*   Created: 2021/12/07 12:08:55 by engooh            #+#    #+#             */
+/*   Updated: 2021/12/07 18:44:16 by engooh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
-#include <stdlib.h>
+#include "get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
 
-
-int	ft_strlen(char *str)
+char	*ft_free(char *s1, char *s2)
 {
-	int	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	return (NULL);
 }
 
-char	*ft_check_read(char *str, char *buffer, int err)
+char	*ft_calloc(size_t nmemb, size_t size)
 {
-	if (err && str)
-	{
-		free(buffer);
-		return (str);
-	}
-	if (err < 1)
-	{
-		free(str);
-		free(buffer);
+	char	*p;
+
+	p = malloc((nmemb + 1) * size);
+	if (!p)
 		return (NULL);
-	}
-	return (str);
+	*p = '\0';
+	return (p);
 }
 
-
-size_t	ft_strchr(char *str, long start, size_t *n)
+char	*ft_read(int fd, char **cache, size_t max, long ret)
 {
-	if (!str)
-		return (0); 
-	if (start == -1)
-		start++;
-	while (str[start] && str[start] != '\n')
-		start++;
-	if (str[start] == '\n')
-		*n = start;
-	else 
-		*n = 0;
-	return (*n);
-}
-
-char	*ft_strdup(char	*str, size_t size)
-{
-	size_t	i;
-	char	*new;
-
-	if (!str)
-		return (NULL);
-	new = malloc(sizeof(char) * (size + 1));
-	if (!new)
-		return (NULL);
-	i = -1;
-	while (str[++i] && str[i] != '\n')
-		new[i] = str[i];
-	if (str[i] == '\n')
-		new[i++] = '\n';
-	new[i] = '\0';
-	return (new);
-}
-
-char	*ft_strjoin(char *s1, char *s2, size_t start, size_t size)
-{
-	char	*new_line;
-	char	*c;
-	size_t	i;
-
-	if (!s1)
-		s1 = ft_strdup("", 0);
-	new_line = malloc(sizeof(char) * (size + 1));
-	if (!new_line || !s2)
-		return (NULL);
-	c = new_line;
-	i = start;
-	while (s1[++i])
-		*new_line++ = s1[i];
-	free (s1);
-	i = -1;
-	while (s2[++i])
-		*new_line++ = s2[i];
-	*new_line = '\0';
-	return (c);
-}
-
-char	*ft_read(char *memory, int fd, size_t l_max, size_t l_buf)
-{
-	char	*buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	char	*buffer;
 	char	*line;
 	size_t	n;
 
-	if (!buffer)
-		return (NULL);
 	n = 0;
-	*buffer = '\0';
-	while (!ft_strchr(memory, (l_max - l_buf), &n) && l_buf)
+	buffer = ft_calloc(BUFFER_SIZE, 4);
+	while (!ft_strchr(*cache, '\n', &n) && ret)
 	{
-		l_buf = read(fd, buffer, BUFFER_SIZE);
-		if (l_buf < 1 && !*memory)
-			return (ft_check_read(memory, buffer, l_buf));
-		if (!l_max)
-			l_max = ft_strlen(memory);
-		l_max += l_buf;
-		buffer[l_buf] = '\0';
-		if (n)
-			memory = ft_strjoin(memory, buffer, 0, (l_max - l_buf) + n);
-		else 
-			memory = ft_strjoin(memory, buffer, 0, l_max);
+		ret = read(fd, buffer, BUFFER_SIZE);
+		if (ret <= 0)
+			return (ft_free(buffer, *cache));
+		buffer[ret] = '\0';
+		//printf("BUFF : %s--\n\n", buffer);
+		max += ret;
+		*cache = ft_strjoin(*cache, buffer);
+		
 	}
-	if (n)
-		line = ft_strdup(memory, (l_max - l_buf) + n);
-	else
-		line = ft_strdup(memory, l_max);
-	memory = ft_strjoin(memory, memory, (l_max - l_buf) + n, l_max - n);
-	return (ft_check_read(line, buffer, l_buf));
+	printf("--CACHE2:%s--\n", *cache);
+	printf("--BUFFER:%s--\n", buffer);
+	free(buffer);
+	line = ft_strdup(*cache);
+	//printf("LINE : %s", line);
+	*cache = ft_substr(*cache, n + 1, ft_strlen(*cache + n));
+	printf("--CACHE3:%s--", *cache);
+	//printf("Sortie du read : %s", line);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*memory;
 	char		*line;
+	static char	*cache;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!memory)
-		memory = ft_strdup("", 0);
-	line = ft_read(memory, fd, 0, 1);
+	if (!cache)
+		cache = ft_calloc(1, 4);
+	printf("--CACHE1:%s--\n", cache);
+	line = ft_read(fd, &cache, ft_strlen(cache), 1);
 	return (line);
 }
 
-int	main(int argc, char **argv)
+
+int main(void)
 {
-	int	fd;
+	int 	fd;
 	char	*str;
 
+	fd = open("text.txt", O_RDONLY);
+	/*printf("LINE = %s", str = get_next_line(fd));
+	free(str);
+	printf("LINE = %s", str = get_next_line(fd));
+	free(str);*/
 
-	(void)argc;
-	(void)argv;
-	fd = open("bible.txt", O_RDONLY);
-	if (fd < 0)
-		return (0);
-	str = malloc(sizeof(char) * 1);
-	*str = '\0';
-	while (str)
+
+	while ((str = get_next_line(fd)) != NULL)
 	{
-		str = get_next_line(fd);
 		printf("%s", str);
-		if (str)
-			free(str);
+		free(str);
 	}
-	close(fd);
+	printf("%s", str);
 	return (0);
 }
